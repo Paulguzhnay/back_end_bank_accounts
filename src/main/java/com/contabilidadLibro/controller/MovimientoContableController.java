@@ -38,4 +38,16 @@ public class MovimientoContableController {
         List<MovimientoContable> movimientos = movimientoContableService.obtenerTodosMovimientos();
         return ResponseEntity.ok(movimientos);
     }
+
+    @GetMapping("/clientes")
+    public ResponseEntity<List<String>> obtenerClientes() {
+        List<String> clientes = movimientoContableService.obtenerClientes();
+        return ResponseEntity.ok(clientes);
+    }
+
+    @GetMapping("/cuentas")
+    public ResponseEntity<List<String>> obtenerCuentas() {
+        List<String> cuentas = movimientoContableService.obtenerCuentas();
+        return ResponseEntity.ok(cuentas);
+    }
 }
