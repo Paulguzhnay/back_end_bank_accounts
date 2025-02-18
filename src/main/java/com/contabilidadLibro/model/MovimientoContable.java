@@ -22,8 +22,6 @@ public class MovimientoContable {
     @Column(name = "fechaCompra")
     private LocalDate fechaCompra;
 
-    @Column(name = "mesAno")
-    private String mesAno;
 
     @Column(name = "cuenta")
     private String cuenta;
@@ -85,13 +83,6 @@ public class MovimientoContable {
         this.fechaCompra = fechaCompra;
     }
 
-    public String getMesAno() {
-        return mesAno;
-    }
-
-    public void setMesAno(String mesAno) {
-        this.mesAno = mesAno;
-    }
 
     public String getCuenta() {
         return cuenta;

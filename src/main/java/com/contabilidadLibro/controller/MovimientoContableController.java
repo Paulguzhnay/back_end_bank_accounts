@@ -1,5 +1,6 @@
 package com.contabilidadLibro.controller;
 
+import com.contabilidadLibro.dto.TransferenciaRequest;
 import com.contabilidadLibro.model.MovimientoContable;
 import com.contabilidadLibro.service.MovimientoContableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,38 @@ public class MovimientoContableController {
     public ResponseEntity<List<String>> obtenerCuentas() {
         List<String> cuentas = movimientoContableService.obtenerCuentas();
         return ResponseEntity.ok(cuentas);
+    }
+
+    // Actualizacion de Cuentas
+    @PutMapping("/movimiento/{id}")
+    public ResponseEntity<MovimientoContable> actualizarMovimiento(
+            @PathVariable Long id,
+            @RequestBody MovimientoContable movimientoActualizado) {
+
+        MovimientoContable movimiento = movimientoContableService.actualizarMovimiento(id, movimientoActualizado);
+        return ResponseEntity.ok(movimiento);
+    }
+
+
+    //Transferencia de Cuentas
+    @PostMapping("/transferencia")
+    public ResponseEntity<String> transferirEntreCuentas(@RequestBody TransferenciaRequest transferenciaRequest) {
+        movimientoContableService.transferirEntreCuentas(
+                transferenciaRequest.getCuentaOrigen(),
+                transferenciaRequest.getCuentaDestino(),
+                transferenciaRequest.getMonto()
+        );
+        return ResponseEntity.ok("Transferencia realizada con éxito.");
+    }
+
+    //Filtro
+    @GetMapping("/movimientos/filtrar")
+    public ResponseEntity<List<MovimientoContable>> filtrarMovimientos(
+            @RequestParam(required = false) String clienteProveedor,
+            @RequestParam(required = false) String numeroFactura,
+            @RequestParam(required = false) String numeroCI) {
+
+        List<MovimientoContable> movimientos = movimientoContableService.filtrarMovimientos(clienteProveedor, numeroFactura, numeroCI);
+        return ResponseEntity.ok(movimientos);
     }
 }
